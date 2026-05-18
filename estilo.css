@@ -1,1 +1,292 @@
+/* Reset y base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #0a0c10;  /* fondo oscuro que se ve a través de la imagen semitransparente */
+    color: #1e1f2a;
+    line-height: 1.5;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* CAPA DE FONDO CON IMAGEN + OPACIDAD 50% */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://picsum.photos/id/104/1200/1600'); /* imagen de ejemplo - cámbiala por la que quieras */
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    opacity: 0.5;          /* 50% de opacidad */
+    z-index: -2;
+}
+
+/* Contenedor principal estilo glassmorph */
+.container {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 1.8rem 1.5rem 2.8rem;
+    min-height: 100vh;
+    background-color: rgba(255, 255, 255, 0.88);
+    border-radius: 0;
+    box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.25);
+}
+
+@media (min-width: 600px) {
+    .container {
+        margin: 2rem auto;
+        border-radius: 2.5rem;
+        min-height: auto;
+        background-color: rgba(255, 255, 255, 0.92);
+    }
+}
+
+/* HEADER: logo cuadrado con imagen + título */
+.header {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    margin-bottom: 2.2rem;
+    flex-wrap: wrap;
+}
+
+.logo-square {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #3a1c71, #d76d77, #ffaf7b);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 12px 18px -8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+    overflow: hidden; /* para que la imagen redondee bien si es cuadrada */
+}
+
+.logo-square:hover {
+    transform: scale(1.02);
+}
+
+.logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* asegura que la imagen cubra el cuadrado sin deformarse */
+    display: block;
+}
+
+.title-section h1 {
+    font-size: 1.85rem;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    background: linear-gradient(120deg, #1f1c2c, #2a2a4a);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    margin-bottom: 0.2rem;
+}
+
+.title-section p {
+    font-size: 0.85rem;
+    color: #5b5f7a;
+    font-weight: 500;
+}
+
+/* Espacio de texto descriptivo */
+.description-text {
+    background: rgba(245, 247, 250, 0.7);
+    padding: 1.2rem 1.4rem;
+    border-radius: 28px;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(255,255,255,0.6);
+    backdrop-filter: blur(2px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.02);
+}
+
+.description-text p {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #1f2a44;
+    line-height: 1.45;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.description-text i {
+    font-size: 1.7rem;
+    color: #3a3f6e;
+    opacity: 0.8;
+}
+
+/* Tabla de redes sociales */
+.social-section {
+    margin-top: 0.8rem;
+}
+
+.social-section h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: #1c1e2e;
+    border-left: 4px solid #ff7e5e;
+    padding-left: 1rem;
+}
+
+.social-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255,255,245,0.5);
+    border-radius: 24px;
+    overflow: hidden;
+    backdrop-filter: blur(1px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+.social-table tbody tr {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    transition: background 0.2s;
+}
+
+.social-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.social-table td {
+    padding: 1rem 0.9rem;
+    vertical-align: middle;
+}
+
+/* Primera columna: icono + nombre de red */
+.social-table td:first-child {
+    font-weight: 600;
+    width: 45%;
+    color: #222;
+}
+
+.social-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.social-brand i {
+    font-size: 1.7rem;
+    width: 32px;
+    text-align: center;
+}
+
+.social-brand span {
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* Segunda columna: enlace */
+.social-link-cell {
+    text-align: right;
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(30, 35, 55, 0.08);
+    padding: 0.45rem 1rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: #1e2a4a;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(2px);
+    border: 0.5px solid rgba(255,255,240,0.4);
+}
+
+.social-link i {
+    font-size: 0.85rem;
+    opacity: 0.7;
+}
+
+.social-link:hover {
+    background: #2d2f4e;
+    color: white;
+    transform: translateX(3px);
+    border-color: transparent;
+}
+
+.social-link:hover i {
+    color: white;
+    opacity: 1;
+}
+
+.social-link:active {
+    transform: scale(0.97);
+}
+
+/* Colores de iconos específicos */
+.social-brand .fa-instagram { color: #d62976; }
+.social-brand .fa-twitter { color: #1DA1F2; }
+.social-brand .fa-facebook { color: #1877f2; }
+.social-brand .fa-tiktok { color: #000000; }
+.social-brand .fa-youtube { color: #ff0000; }
+.social-brand .fa-github { color: #2d3748; }
+
+.social-table tr:hover td:first-child .social-brand i {
+    transform: scale(1.05);
+    transition: transform 0.1s;
+}
+
+/* Pie de página */
+.footer-note {
+    margin-top: 2.2rem;
+    text-align: center;
+    font-size: 0.7rem;
+    color: #4b4e6e;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    padding-top: 1.2rem;
+    font-weight: 400;
+}
+
+/* Ajustes móviles */
+@media (max-width: 450px) {
+    .social-table td:first-child {
+        white-space: normal;
+        gap: 8px;
+        font-size: 0.9rem;
+    }
+    .container {
+        padding: 1.2rem 1rem 2rem;
+    }
+    .logo-square {
+        width: 58px;
+        height: 58px;
+    }
+    .title-section h1 {
+        font-size: 1.5rem;
+    }
+    .social-brand span {
+        font-size: 0.85rem;
+    }
+    .social-link {
+        padding: 0.35rem 0.8rem;
+        font-size: 0.8rem;
+    }
+}
+
+/* Mejoras táctiles */
+a, .logo-square {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
