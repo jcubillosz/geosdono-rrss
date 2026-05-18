@@ -22,7 +22,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('https://picsum.photos/id/104/1200/1600'); /* imagen de ejemplo - cámbiala por la que quieras */
+    background-image: Fondo.png; /* imagen de ejemplo - cámbiala por la que quieras */
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
