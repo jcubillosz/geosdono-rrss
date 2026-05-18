@@ -1,6 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>Perfil Digital | Conecta tus redes</title>
+    <!-- Fuente moderna y ligera -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (iconos gratuitos) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Fondo general del body: color sólido que se verá a través de la imagen semitransparente */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0c10;  /* fondo oscuro neutro que se filtra debajo de la imagen con opacidad */
+            color: #1e1f2a;
+            line-height: 1.5;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* --- CAPA DE FONDO CON IMAGEN + OPACIDAD 50% --- */
+        /* Se crea un pseudo-elemento que cubre toda la pantalla, con la imagen de fondo y opacidad 0.5 */
+        body::before {
+            content: "";
+            position: fixed;      /* fijo para que cubra toda la ventana incluso al hacer scroll */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://picsum.photos/id/104/1200/1600'); /* imagen de ejemplo (paisaje con agua y rocas) */
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            opacity: 0.5;         /* 50% de opacidad exactamente como se pide */
+            z-index: -2;          /* detrás del contenido y del color base */
+        }
+
+        /* Pequeño overlay extra para asegurar legibilidad (opcional, pero mejora contraste) */
+        /* No es necesario agregar opacidad extra, se mantiene la imagen al 50% */
+
+        /* Contenedor principal: contenido centrado con márgenes, fondo semi-transparente estilo "glassmorph" moderno */
+        .container {
+            max-width: 560px;
+            margin: 0 auto;
+            padding: 1.8rem 1.5rem 2.8rem;
+            min-height: 100vh;
+            backdrop-filter: blur(0px);  /* sin blur para no interferir con la claridad, pero mantiene el fondo */
+            background-color: rgba(255, 255, 255, 0.88);  /* fondo blanco translúcido para legibilidad */
+            border-radius: 0;            /* en móvil se ve más limpio sin bordes laterales, pero le damos suavidad */
+            box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Para pantallas más anchas se ve mejor con bordes redondeados */
+        @media (min-width: 600px) {
+            .container {
+                margin: 2rem auto;
+                border-radius: 2.5rem;
+                min-height: auto;
+                background-color: rgba(255, 255, 255, 0.92);
+            }
+        }
+
+        /* --- HEADER: LOGO CUADRADO + TÍTULO --- */
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            margin-bottom: 2.2rem;
+            flex-wrap: wrap;
+        }
+
+        /* Logo cuadrado: estricta proporción 1:1 con fondo degradado moderno */
+        .logo-square {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #3a1c71, #d76d77, #ffaf7b);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 12px 18px -8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease;
+        }
+        .logo-square i {
+            font-size: 2.4rem;
+            color: white;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+        .logo-square:hover {
+            transform: scale(1.02);
+        }
+
+        .title-section h1 {
+            font-size: 1.85rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            background: linear-gradient(120deg, #1f1c2c, #2a2a4a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.2rem;
+        }
+        .title-section p {
+            font-size: 0.85rem;
+            color: #5b5f7a;
+            font-weight: 500;
+        }
+
+        /* --- ESPACIO PARA TEXTO DESCRIPTIVO (estilo moderno) --- */
+        .description-text {
+            background: rgba(245, 247, 250, 0.7);
+            padding: 1.2rem 1.4rem;
+            border-radius: 28px;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255,255,255,0.6);
+            backdrop-filter: blur(2px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.02);
+        }
+        .description-text p {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #1f2a44;
+            line-height: 1.45;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .description-text i {
+            font-size: 1.7rem;
+            color: #3a3f6e;
+            opacity: 0.8;
+        }
+
+        /* --- TABLA DE REDES SOCIALES: 2 COLUMNAS, estilo moderno, responsiva --- */
+        .social-section {
+            margin-top: 0.8rem;
+        }
+        .social-section h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: #1c1e2e;
+            border-left: 4px solid #ff7e5e;
+            padding-left: 1rem;
+        }
+        .social-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255,255,245,0.5);
+            border-radius: 24px;
+            overflow: hidden;
+            backdrop-filter: blur(1px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        }
+        .social-table tbody tr {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            transition: background 0.2s;
+        }
+        .social-table tbody tr:last-child {
+            border-bottom: none;
+        }
+        .social-table td {
+            padding: 1rem 0.9rem;
+            vertical-align: middle;
+        }
+        /* Primera columna: icono + nombre de red */
+        .social-table td:first-child {
+            font-weight: 600;
+            width: 45%;
+            color: #222;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            white-space: nowrap;
+        }
+        /* ajuste para pantallas muy pequeñas, evitamos desborde */
+        @media (max-width: 450px) {
+            .social-table td:first-child {
+                white-space: normal;
+                gap: 8px;
+                font-size: 0.9rem;
+            }
+            .container {
+                padding: 1.2rem 1rem 2rem;
+            }
+            .logo-square {
+                width: 58px;
+                height: 58px;
+            }
+            .logo-square i {
+                font-size: 2rem;
+            }
+            .title-section h1 {
+                font-size: 1.5rem;
+            }
+        }
+        /* para que la primera celda se comporte como bloque pero manteniendo la estructura de tabla */
+        .social-table tr {
+            display: table-row;
+        }
+        .social-table td:first-child {
+            display: table-cell;
+        }
+        /* pero queremos que el contenido interno sea flexible con icono y texto */
+        .social-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .social-brand i {
+            font-size: 1.7rem;
+            width: 32px;
+            text-align: center;
+        }
+        .social-brand span {
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* Segunda columna: enlace con nombre de usuario */
+        .social-link-cell {
+            text-align: right;
+        }
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(30, 35, 55, 0.08);
+            padding: 0.45rem 1rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: #1e2a4a;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(2px);
+            border: 0.5px solid rgba(255,255,240,0.4);
+        }
+        .social-link i {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+        .social-link:hover {
+            background: #2d2f4e;
+            color: white;
+            transform: translateX(3px);
+            border-color: transparent;
+        }
+        .social-link:hover i {
+            color: white;
+            opacity: 1;
+        }
+
+        /* Estilo para cuando el enlace está enfocado */
+        .social-link:active {
+            transform: scale(0.97);
+        }
+
+        /* Ajustes específicos para los íconos de marcas conocidas (colores sutiles en hover) */
+        .social-brand .fa-instagram { color: #d62976; }
+        .social-brand .fa-twitter { color: #1DA1F2; }
+        .social-brand .fa-facebook { color: #1877f2; }
+        .social-brand .fa-tiktok { color: #000000; }
+        .social-brand .fa-youtube { color: #ff0000; }
+        .social-brand .fa-github { color: #2d3748; }
+        .social-table tr:hover td:first-child .social-brand i {
+            transform: scale(1.05);
+            transition: transform 0.1s;
+        }
+
+        /* pie minimal */
+        .footer-note {
+            margin-top: 2.2rem;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #4b4e6e;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            padding-top: 1.2rem;
+            font-weight: 400;
+        }
+
+        /* mejora de accesibilidad táctil */
+        a, button, .logo-square {
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
 </head>
 <body>
-  Mi pagina web
+    <div class="container">
+        <!-- Cabecera con logo cuadrado + título -->
+        <div class="header">
+            <div class="logo-square">
+                <i class="fas fa-share-alt"></i> <!-- icono cuadrado y moderno -->
+            </div>
+            <div class="title-section">
+                <h1>ConectaHub</h1>
+                <p>tus redes, un solo lugar</p>
+            </div>
+        </div>
+
+        <!-- Espacio para texto (descripción principal) -->
+        <div class="description-text">
+            <p>
+                <i class="fas fa-hand-peace"></i> 
+                Sígueme en mis plataformas digitales y mantente al día con contenido creativo, actualizaciones y comunidad. ¡Te espero!
+            </p>
+        </div>
+
+        <!-- Tabla de 2 columnas con redes sociales, icono + nombre de usuario y enlace -->
+        <div class="social-section">
+            <h2><i class="fas fa-hashtag"></i> Mis redes</h2>
+            <table class="social-table">
+                <tbody>
+                    <!-- FILA 1: Instagram -->
+                    <tr>
+                        <td>
+                            <div class="social-brand">
+                                <i class="fab fa-instagram"></i>
+                                <span>Instagram</span>
+                            </div>
+                        </td>
+                        <td class="social-link-cell">
+                            <a href="https://instagram.com/creative_username" class="social-link" target="_blank" rel="noopener noreferrer">
+                                <i class="fas fa-external-link-alt"></i> @creative_username
+                            </a>
+                        </td>
+                    </tr>
+                    <!-- FILA 2: Twitter / X -->
+                    <tr>
+                        <td>
+                            <div class="social-brand">
+                                <i class="fab fa-twitter"></i>
+                                <span>Twitter</span>
+                            </div>
+                        </td>
+                        <td class="social-link-cell">
+                            <a href="https://twitter.com/modern_twit" class="social-link" target="_blank" rel="noopener noreferrer">
+                                <i class="fas fa-external-link-alt"></i> @modern_twit
+                            </a>
+                        </td>
+                    </tr>
+                    <!-- FILA 3: Facebook -->
+                    <tr>
+                        <td>
+                            <div class="social-brand">
+                                <i class="fab fa-facebook"></i>
+                                <span>Facebook</span>
+                            </div>
+                        </td>
+                        <td class="social-link-cell">
+                            <a href="https://facebook.com/mi.pagina.ejemplo" class="social-link" target="_blank" rel="noopener noreferrer">
+                                <i class="fas fa-external-link-alt"></i> /conecta.hub
+                            </a>
+                        </td>
+                    </tr>
+                    <!-- FILA 4: TikTok (ejemplo adicional, N filas) -->
+                    <tr>
+                        <td>
+                            <div class="social-brand">
+                                <i class="fab fa-tiktok"></i>
+                                <span>TikTok</span>
+                            </div>
+                        </td>
+                        <td class="social-link-cell">
+                            <a href="https://tiktok.com/@viral.modern" class="social-link" target="_blank" rel="noopener noreferrer">
+                                <i class="fas fa-external-link-alt"></i> @viral.modern
+                            </a>
+                        </td>
+                    </tr>
+                    <!-- FILA 5: YouTube -->
+                    <tr>
+                        <td>
+                            <div class="social-brand">
+                                <i class="fab fa-youtube"></i>
+                                <span>YouTube</span>
+                            </div>
+                        </td>
+                        <td class="social-link-cell">
+                            <a href="https://youtube.com/c/creativestudio" class="social-link" target="_blank" rel="noopener noreferrer">
+                                <i class="fas fa-external-link-alt"></i> Creative Studio
+                            </a>
+                        </td>
+                    </tr>
+                    <!-- FILA 6: GitHub (opcional, pero muestra flexibilidad) -->
+                    <tr>
+                        <td>
+                            <div class="social-brand">
+                                <i class="fab fa-github"></i>
+                                <span>GitHub</span>
+                            </div>
+                        </td>
+                        <td class="social-link-cell">
+                            <a href="https://github.com/uxmodern" class="social-link" target="_blank" rel="noopener noreferrer">
+                                <i class="fas fa-external-link-alt"></i> @uxmodern
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="footer-note">
+            <i class="fas fa-mobile-alt"></i> Perfil dinámico · Enlaces directos
+        </div>
+    </div>
+
+    <!-- Nota aclaratoria: 
+         La imagen de fondo (picsum id=104) posee una opacidad exacta del 50% gracias al pseudo-elemento body::before con opacity:0.5.
+         La imagen cubre toda la pantalla sin perder su proporción con background-size:cover.
+         El diseño incluye logo cuadrado, título, texto descriptivo y tabla de dos columnas con íconos + hipervínculos.
+         Totalmente responsivo y moderno. 
+    -->
 </body>
+</html>
