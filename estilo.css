@@ -26,7 +26,7 @@ body::before {
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
-    opacity: 0.5;          /* 50% de opacidad */
+    opacity: 0.3;          /* 50% de opacidad */
     z-index: -2;
 }
 
